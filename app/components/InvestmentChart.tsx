@@ -56,35 +56,62 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
   };
 
   return (
-    <div className="w-full h-[400px] sm:h-[500px]">
+    <div className="w-full h-[500px] sm:h-[600px]">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={filteredData}
-          margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+          margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
         >
           <defs>
             <linearGradient id="colorInvested" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
-              <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+              <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.4} />
+              <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.05} />
             </linearGradient>
             <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#10B981" stopOpacity={0.3} />
-              <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
+              <stop offset="5%" stopColor="#10B981" stopOpacity={0.4} />
+              <stop offset="95%" stopColor="#10B981" stopOpacity={0.05} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" className="stroke-gray-300 dark:stroke-gray-700" />
+          <CartesianGrid 
+            strokeDasharray="3 3" 
+            className="stroke-gray-300 dark:stroke-gray-700" 
+            opacity={0.3}
+          />
           <XAxis
-            dataKey="year"
-            label={{ value: "Years", position: "insideBottom", offset: -5 }}
+            dataKey="age"
+            label={{ 
+              value: "Your Age", 
+              position: "insideBottom", 
+              offset: -10,
+              style: { fontSize: '14px', fontWeight: 600 }
+            }}
             className="text-gray-600 dark:text-gray-400"
+            tick={{ fontSize: 12 }}
+            tickMargin={10}
           />
           <YAxis
             tickFormatter={formatCurrency}
-            label={{ value: "Amount ($)", angle: -90, position: "insideLeft" }}
+            label={{ 
+              value: "Portfolio Value", 
+              angle: -90, 
+              position: "insideLeft",
+              style: { fontSize: '14px', fontWeight: 600 }
+            }}
             className="text-gray-600 dark:text-gray-400"
+            tick={{ fontSize: 12 }}
+            tickMargin={10}
+            width={80}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Legend />
+          <Legend 
+            wrapperStyle={{ 
+              paddingTop: '20px',
+              fontSize: '14px',
+              fontWeight: 600
+            }}
+            iconSize={12}
+            iconType="circle"
+          />
           <Area
             type="monotone"
             dataKey="invested"
@@ -92,7 +119,7 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
             fillOpacity={1}
             fill="url(#colorInvested)"
             name="Total Invested"
-            strokeWidth={2}
+            strokeWidth={3}
           />
           <Area
             type="monotone"
@@ -101,7 +128,7 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
             fillOpacity={1}
             fill="url(#colorValue)"
             name="Portfolio Value"
-            strokeWidth={2}
+            strokeWidth={3}
           />
         </AreaChart>
       </ResponsiveContainer>

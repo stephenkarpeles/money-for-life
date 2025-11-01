@@ -32,7 +32,8 @@ export default function Calculator() {
   const investmentData: InvestmentData[] = useMemo(() => {
     const annualInvestment = (taxResult.netIncome * investmentPercent) / 100;
     const age = parseInt(currentAge) || 25;
-    return calculateCompoundGrowth(annualInvestment, 80, age);
+    const yearsToProject = Math.max(1, 80 - age); // Project until age 80
+    return calculateCompoundGrowth(annualInvestment, yearsToProject, age);
   }, [taxResult.netIncome, investmentPercent, currentAge]);
 
   const formatCurrency = (amount: number) => {
@@ -92,13 +93,13 @@ export default function Calculator() {
             </div>
           </div>
 
-          {/* Current Age Input */}
+          {/* Age to Start Investing Input */}
           <div>
             <label
               htmlFor="age"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
             >
-              Current Age
+              Age to Start Investing
             </label>
             <input
               type="number"
@@ -107,6 +108,8 @@ export default function Calculator() {
               onChange={(e) => setCurrentAge(e.target.value)}
               className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
               placeholder="25"
+              min="15"
+              max="80"
             />
           </div>
 
@@ -276,7 +279,7 @@ export default function Calculator() {
           </div>
           <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
-              Total Invested (80 years)
+              Total Invested (until age 80)
             </p>
             <p className="text-xl font-bold text-purple-600 dark:text-purple-400">
               {formatCurrency(totalInvested)}
