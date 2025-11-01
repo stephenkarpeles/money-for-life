@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Money for Life - Compound Interest Calculator",
   description:
-    "Discover the power of compound interest. Calculate your net income after taxes and see how consistent investing can transform your financial future.",
+    "Hey kids, let's learn about compound interest! Just remember: saving and investing is boring now, but SUPER FUN later! 6-7!",
 };
 
 export default function RootLayout({

@@ -73,8 +73,7 @@ export default function Calculator() {
           Money for Life
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          Discover the power of compound interest. See how consistent investing
-          can transform your financial future.
+        Hey kids, let's learn about compound interest!<br/>Just remember: Saving and investing is boring <em>now</em>, but <em>super fun later!</em> 6-7!
         </p>
       </div>
 
