@@ -19,8 +19,8 @@ interface InvestmentChartProps {
 }
 
 export default function InvestmentChart({ data }: InvestmentChartProps) {
-  // Filter data to show key milestones (every 5 years)
-  const filteredData = data.filter((d) => d.year % 5 === 0);
+  // Use all data for hover, but show ticks every 5 years
+  const chartData = data;
 
   const formatCurrency = (value: number) => {
     if (value >= 1000000) {
@@ -59,8 +59,8 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
     <div className="w-full h-[500px] sm:h-[600px]">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
-          data={filteredData}
-          margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
+          data={chartData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 40 }}
         >
           <defs>
             <linearGradient id="colorInvested" x1="0" y1="0" x2="0" y2="1">
@@ -82,12 +82,13 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
             label={{ 
               value: "Your Age", 
               position: "insideBottom", 
-              offset: -10,
+              offset: -15,
               style: { fontSize: '14px', fontWeight: 600 }
             }}
             className="text-gray-600 dark:text-gray-400"
             tick={{ fontSize: 12 }}
             tickMargin={10}
+            ticks={data.filter((d) => d.year % 5 === 0).map((d) => d.age)}
           />
           <YAxis
             tickFormatter={formatCurrency}
@@ -95,7 +96,7 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
               value: "Portfolio Value", 
               angle: -90, 
               position: "insideLeft",
-              style: { fontSize: '14px', fontWeight: 600 }
+              style: { fontSize: '12px', fontWeight: 600 }
             }}
             className="text-gray-600 dark:text-gray-400"
             tick={{ fontSize: 12 }}
@@ -108,7 +109,10 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
               paddingTop: '30px',
               paddingBottom: '10px',
               fontSize: '14px',
-              fontWeight: 600
+              fontWeight: 600,
+              display: 'flex',
+              gap: '30px',
+              justifyContent: 'center'
             }}
             iconSize={14}
             iconType="circle"

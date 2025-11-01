@@ -21,6 +21,21 @@ export default function Calculator() {
 
   const states = useMemo(() => getStatesList(), []);
 
+  // Format salary with commas for display
+  const formatSalaryDisplay = (value: string) => {
+    const num = parseFloat(value.replace(/,/g, ""));
+    if (isNaN(num)) return "";
+    return num.toLocaleString("en-US");
+  };
+
+  // Handle salary input change
+  const handleSalaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/,/g, ""); // Remove commas
+    if (value === "" || /^\d+$/.test(value)) {
+      setSalary(value);
+    }
+  };
+
   // Calculate taxes
   const taxResult: TaxResult = useMemo(() => {
     const salaryNum = parseFloat(salary) || 0;
@@ -83,12 +98,12 @@ export default function Calculator() {
                 $
               </span>
               <input
-                type="number"
+                type="text"
                 id="salary"
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
+                value={formatSalaryDisplay(salary)}
+                onChange={handleSalaryChange}
                 className="w-full pl-8 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                placeholder="75000"
+                placeholder="75,000"
               />
             </div>
           </div>
