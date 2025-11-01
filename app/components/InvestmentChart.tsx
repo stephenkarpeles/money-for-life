@@ -37,17 +37,17 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
       const data = payload[0].payload;
       return (
         <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-          <p className="font-semibold text-gray-900 dark:text-white mb-2">
-            Year {data.year} (Age {data.age})
+          <p className="font-semibold text-gray-900 dark:text-white mb-3">
+            Age {data.age} (Year {data.year})
           </p>
-          <p className="text-sm text-blue-600 dark:text-blue-400">
+          <p className="text-sm text-blue-600 dark:text-blue-400 mb-1">
             Total Invested: {formatCurrency(data.invested)}
           </p>
-          <p className="text-sm text-green-600 dark:text-green-400">
-            Portfolio Value: {formatCurrency(data.value)}
-          </p>
-          <p className="text-sm text-purple-600 dark:text-purple-400 mt-1">
+          <p className="text-sm text-purple-600 dark:text-purple-400 mb-2">
             Gains: {formatCurrency(data.value - data.invested)}
+          </p>
+          <p className="text-base font-bold text-green-600 dark:text-green-400">
+            Portfolio Value: {formatCurrency(data.value)}
           </p>
         </div>
       );
@@ -105,11 +105,12 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
           <Tooltip content={<CustomTooltip />} />
           <Legend 
             wrapperStyle={{ 
-              paddingTop: '20px',
+              paddingTop: '30px',
+              paddingBottom: '10px',
               fontSize: '14px',
               fontWeight: 600
             }}
-            iconSize={12}
+            iconSize={14}
             iconType="circle"
           />
           <Area
